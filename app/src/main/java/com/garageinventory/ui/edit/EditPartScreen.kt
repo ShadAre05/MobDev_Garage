@@ -64,19 +64,17 @@ fun EditPartScreen(
                 modifier = Modifier.fillMaxWidth()
             )
 
-            Text(text = "Тип объекта:", style = MaterialTheme.typography.titleMedium)
-
-            Row {
-                Row(verticalAlignment = androidx.compose.ui.Alignment.CenterVertically) {
-                    RadioButton(selected = partType == "Запчасть", onClick = { partType = "Запчасть" })
-                    Text("Запчасть")
-                }
-                Spacer(modifier = Modifier.width(16.dp))
-                Row(verticalAlignment = androidx.compose.ui.Alignment.CenterVertically) {
-                    RadioButton(selected = partType == "Жидкость", onClick = { partType = "Жидкость" })
-                    Text("Жидкость")
-                }
-            }
+            OutlinedTextField(
+                value = part.category,
+                onValueChange = { },
+                label = { Text("Тип объекта (изменение запрещено)") },
+                modifier = Modifier.fillMaxWidth(),
+                enabled = false,
+                colors = OutlinedTextFieldDefaults.colors(
+                    disabledTextColor = MaterialTheme.colorScheme.onSurface,
+                    disabledLabelColor = MaterialTheme.colorScheme.onSurfaceVariant
+                )
+            )
 
             Spacer(modifier = Modifier.weight(1f))
 
@@ -87,7 +85,7 @@ fun EditPartScreen(
                         name = partName,
                         oemNumber = oemNumber,
                         quantity = quantity.toIntOrNull() ?: 1,
-                        category = partType
+                        category = part.category
                     )
                     onSaveClick(updatedPart)
                 },
